@@ -29,6 +29,7 @@ export class UserRepository {
       if (!comparePassword(password, user.password)) {
         throw new Error("Invalid credentials");
       }
+      
       return user;
     } catch (error) {
       throw error;

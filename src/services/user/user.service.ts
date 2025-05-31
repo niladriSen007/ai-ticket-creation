@@ -40,10 +40,32 @@ export class UserService {
     try {
       const { email, password } = data;
       const user = await this.userRepository.loginUser({ email, password })
-      return user;
+      const token = jwt.sign({ email: email, role: USER }, JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      return { user, token };
     } catch (error) {
       console.error("Error creating user:", error);
       throw error;
     }
   }
+
+  public async logout(token: string) {
+    try {
+      if (!token) {
+        throw new Error("Token not found");
+      }
+      jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+          throw new Error("Invalid token");
+        }
+        return decoded;
+      });
+      return true;
+    } catch (error) {
+      console.error("Error logging out:", error);
+      throw error;
+    }
+  }
 }
+
