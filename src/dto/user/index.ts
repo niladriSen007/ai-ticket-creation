@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { JwtPayload } from "jsonwebtoken";
 
 export interface UserSignupRequestBody {
   email: string,
@@ -17,4 +18,21 @@ export interface UserLoginRequestBody {
 
 export interface UserLoginRequest extends Request {
   body: UserLoginRequestBody
+}
+
+export interface UserUpdateRequestBody {
+  email: string,
+  role: string,
+  skills: string[]
+}
+
+export interface UserUpdateRequest extends Request {
+  body: UserUpdateRequestBody
+}
+
+export interface AuthRequest extends Request {
+  user: string | JwtPayload | {
+    email: string,
+    role: string
+  }
 }

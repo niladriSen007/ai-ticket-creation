@@ -19,7 +19,10 @@ const UserSchema = new Schema({
     enum: [ADMIN, USER, MODERATOR],
     default: USER,
   },
-  skills: [String]
+  skills: {
+    type: [String],
+    default: [],
+  }
 }, {
   timestamps: true
 })

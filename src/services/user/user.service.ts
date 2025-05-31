@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../config";
-import { UserLoginRequestBody, UserSignupRequestBody } from "../../dto/user";
+import { AuthRequest, UserLoginRequestBody, UserSignupRequestBody, UserUpdateRequestBody } from "../../dto/user";
 import { hashPassword } from "../../helpers";
 import { inngest } from "../../inngest/client";
 import { UserRepository } from "../../repositories/user/user.repository";
-import { USER } from "../../utils/constant";
+import { ADMIN, USER } from "../../utils/constant";
+import { Request } from "express";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) { }
@@ -64,6 +65,35 @@ export class UserService {
       return true;
     } catch (error) {
       console.error("Error logging out:", error);
+      throw error;
+    }
+  }
+
+
+  async updateUser(data: UserUpdateRequestBody) {
+    try {
+      const { email, role, skills = [] } = data;
+      if (role !== ADMIN) {
+        throw new Error("Only admin can update user role")
+      }
+      //pass to repo layer for further processing
+      const user = await this.userRepository.updateUser({ email, role, skills })
+      return user;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+
+  async getUser(req: AuthRequest) {
+    try {
+      if ((req?.user as { role: string })?.role !== ADMIN) {
+        throw new Error("Only admin can get user")
+      }
+      const users = await this.userRepository.getUser();
+      return users;
+    } catch (error) {
+      console.error("Error creating user:", error);
       throw error;
     }
   }

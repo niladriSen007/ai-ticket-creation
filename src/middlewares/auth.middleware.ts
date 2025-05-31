@@ -2,8 +2,9 @@ import { StatusCodes } from 'http-status-codes';
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../config"
+import { AuthRequest } from '../dto/user';
 
-export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
@@ -13,7 +14,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     if (!decoded) {
       return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized" });
     }
-    req.body.user = decoded;
+    req.user = decoded;
     next();
   } catch (error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized" });
