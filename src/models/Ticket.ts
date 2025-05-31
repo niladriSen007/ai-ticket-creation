@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { CLOSED, CRITICAL, HIGH, IN_PROGRESS, LOW, MEDIUM, OPEN } from "../../utils/constant";
+import { CLOSED, CRITICAL, HIGH, IN_PROGRESS, LOW, MEDIUM, OPEN } from "../utils/constant";
 
 const TicketSchema = new Schema({
   title: {

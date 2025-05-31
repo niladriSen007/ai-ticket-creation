@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { ADMIN, MODERATOR, USER } from "../../utils/constant";
+import { ADMIN, MODERATOR, USER } from "../utils/constant";
 
 const UserSchema = new Schema({
   email: {

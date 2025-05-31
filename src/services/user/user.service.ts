@@ -1,0 +1,49 @@
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../../config";
+import { UserLoginRequestBody, UserSignupRequestBody } from "../../dto/user";
+import { hashPassword } from "../../helpers";
+import { inngest } from "../../inngest/client";
+import { UserRepository } from "../../repositories/user/user.repository";
+import { USER } from "../../utils/constant";
+
+export class UserService {
+  constructor(private readonly userRepository: UserRepository) { }
+
+  public async createUser(data: UserSignupRequestBody): Promise<string> {
+    try {
+      const { email, password, skills = [] } = data;
+      //Hash user password
+      const hashedPassword = await hashPassword(password);
+      //pass to repo layer for further processing
+      const user = await this.userRepository.createUser({ email, password: hashedPassword, skills })
+
+      //Fire ingest event
+      await inngest.send({
+        name: "user/signup",
+        data: {
+          email: email
+        }
+      })
+
+      const token = jwt.sign({ email: email, role: USER }, JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      return token;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+
+
+  public async loginUser(data: UserLoginRequestBody) {
+    try {
+      const { email, password } = data;
+      const user = await this.userRepository.loginUser({ email, password })
+      return user;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+}

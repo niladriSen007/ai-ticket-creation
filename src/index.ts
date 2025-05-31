@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import chalk from "chalk";
+import Router from "./router"
 import { PORT } from "./config";
 import { connectDB } from "./database/inex";
 export { MONGODB_URI, PORT } from "./config";
@@ -12,8 +12,10 @@ app.use(express.json());
 
 await connectDB();
 
+app.use("/api/v1/", Router);
+
+
 
 app.listen(PORT, () => {
-  chalk.green(`Server running on port ${PORT}`);
   console.log(`Server running on port ${PORT}`);
 });

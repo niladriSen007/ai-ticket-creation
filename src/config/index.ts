@@ -8,6 +8,7 @@ const MAILTRAP_SMTP_HOST = process.env.MAILTRAP_SMTP_HOST || "";
 const MAILTRAP_SMTP_PORT = process.env.MAILTRAP_SMTP_PORT || "";
 const MAILTRAP_SMTP_USER = process.env.MAILTRAP_SMTP_USER || "";
 const MAILTRAP_SMTP_PASS = process.env.MAILTRAP_SMTP_PASS || "";
+const JWT_SECRET = process.env.JWT_SECRET || "jhbvgdjkfgjkfhskfskhjgfsfsdgg"
 
 export {
   MONGODB_URI,
@@ -15,5 +16,6 @@ export {
   MAILTRAP_SMTP_HOST,
   MAILTRAP_SMTP_PORT,
   MAILTRAP_SMTP_USER,
-  MAILTRAP_SMTP_PASS
+  MAILTRAP_SMTP_PASS,
+  JWT_SECRET
 }
