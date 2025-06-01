@@ -18,26 +18,26 @@ const TicketSchema = new Schema({
     trim: true,
     enum: [OPEN, CLOSED, IN_PROGRESS],
     default: OPEN,
-    created_by: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Created by XXX is required"]
-    },
-    assigned_to: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Assigned to XXX is required"]
-    },
-    priority: {
-      type: String,
-      required: [true, "Priority is required"],
-      enum: [LOW, MEDIUM, HIGH, CRITICAL],
-      trim: true
-    },
-    deadline: Date,
-    helpfulNotes: String,
-    relatedSkills: [String]
-  }
+  },
+  created_by: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Created by XXX is required"]
+  },
+  assigned_to: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Assigned to XXX is required"]
+  },
+  priority: {
+    type: String,
+    required: [true, "Priority is required"],
+    enum: [LOW, MEDIUM, HIGH, CRITICAL],
+    trim: true
+  },
+  deadline: Date,
+  helpfulNotes: String,
+  relatedSkills: [String]
 }, {
   timestamps: true
 })

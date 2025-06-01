@@ -9,6 +9,7 @@ const MAILTRAP_SMTP_PORT = process.env.MAILTRAP_SMTP_PORT || "";
 const MAILTRAP_SMTP_USER = process.env.MAILTRAP_SMTP_USER || "";
 const MAILTRAP_SMTP_PASS = process.env.MAILTRAP_SMTP_PASS || "";
 const JWT_SECRET = process.env.JWT_SECRET || "jhbvgdjkfgjkfhskfskhjgfsfsdgg"
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || ""
 
 export {
   MONGODB_URI,
@@ -17,5 +18,6 @@ export {
   MAILTRAP_SMTP_PORT,
   MAILTRAP_SMTP_USER,
   MAILTRAP_SMTP_PASS,
-  JWT_SECRET
+  JWT_SECRET,
+  GEMINI_API_KEY
 }

@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
+import { Schema } from "mongoose";
 
 export interface UserSignupRequestBody {
   email: string,
@@ -31,8 +32,5 @@ export interface UserUpdateRequest extends Request {
 }
 
 export interface AuthRequest extends Request {
-  user: string | JwtPayload | {
-    email: string,
-    role: string
-  }
+  user: string | JwtPayload 
 }

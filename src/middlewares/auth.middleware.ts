@@ -14,7 +14,7 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
     if (!decoded) {
       return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized" });
     }
-    req.user = decoded;
+    req.user = JSON.parse(JSON.stringify(decoded));
     next();
   } catch (error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized" });

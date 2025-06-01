@@ -26,7 +26,7 @@ export class UserService {
         }
       })
 
-      const token = jwt.sign({ email: email, role: USER }, JWT_SECRET, {
+      const token = jwt.sign({ email: email, role: USER,_id : user?._id }, JWT_SECRET, {
         expiresIn: "1d",
       });
       return token;
@@ -41,7 +41,7 @@ export class UserService {
     try {
       const { email, password } = data;
       const user = await this.userRepository.loginUser({ email, password })
-      const token = jwt.sign({ email: email, role: USER }, JWT_SECRET, {
+      const token = jwt.sign({ email: email, role: USER,_id: user?._id }, JWT_SECRET, {
         expiresIn: "1d",
       });
       return { user, token };
